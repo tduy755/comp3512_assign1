@@ -6,9 +6,8 @@ try {
     
     //Test database connection
     $sql = $pdo ->query("select * from drivers ");
-    $results = $sql -> fetchAll(PDO::FETCH_ASSOC);
 
-     foreach ($results as $row) {
+     while($row = $sql -> fetch(PDO::FETCH_ASSOC)){
         echo "ID: " . $row['driverId'] . " - Name: " . $row['surname'] . "<br>";
     }
 } catch (PDOException $e) {

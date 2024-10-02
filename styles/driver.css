@@ -1,0 +1,76 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
+    background-color: #f4f4f4;
+}
+header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+nav {
+    margin-bottom: 20px;
+}
+nav a {
+    margin: 0 10px;
+    text-decoration: none;
+    color: #007BFF;
+}
+.container {
+    display: flex;
+    justify-content: space-between;
+}
+.driver-details, .race-results {
+    background: white;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+ 
+}
+
+.driver-details{
+    width: 35%;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.race-results{
+    width: 65%;
+    font-family: 'Montserrat', sans-serif;
+}
+h2 {
+    margin-top: 0;
+}
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+table, th, td {
+    border: 1px solid #ddd;
+}
+th, td {
+    padding: 8px;
+    text-align: left;
+}
+th {
+    background-color: #f2f2f2;
+}
+.note {
+    color: #555;
+    font-size: 0.9em;
+}
+
+ul {
+    list-style-type: none; /* Remove bullet points */
+}
+
+#name {
+    font-size: 1.5em; 
+}
+
+.driver-details h2 {
+    border-top: 3px solid #000000; /* Add a blue border below the header */
+
+    padding-top: 5px;
+   
+}
