@@ -16,7 +16,10 @@ header("Access-Control-Allow-Origin: *");
 function getSpecifiedDrivers($driverRef = null) {
     if ($driverRef) {
        
-        $sql = "SELECT driverId, forename, surname FROM drivers WHERE driverRef = '$driverRef'"; // Directly include the parameter
+        $sql = "SELECT driverId, forename, surname, dob, 
+         round((julianday('now') - julianday(dob)) / 365.25) AS age, nationality, url 
+        FROM drivers 
+        WHERE driverRef = '$driverRef'"; // Directly include the parameter
     } else {
         $sql = "SELECT driverId, forename, surname FROM drivers"; // Fetch all drivers
     }
@@ -48,11 +51,11 @@ function getDriversForRace($raceId) {
 
 // Check for driverRef or raceId in the query string and call the appropriate function
 if (isset($_GET['driverRef']) && !empty($_GET['driverRef'])) {
-    getDrivers($_GET['driverRef']);
+    getSpecifiedDrivers($_GET['driverRef']);
 } elseif (isset($_GET['raceId']) && !empty($_GET['raceId'])) {
     getDriversForRace($_GET['raceId']);
 } else {
-    getDrivers(); // Call without parameters to fetch all drivers
+    getSpecifiedDrivers(); // Call without parameters to fetch all drivers
 }
 
 
