@@ -13,18 +13,17 @@ header('Content-type: application/json');
 // Indicate whether other domains can use this API
 header("Access-Control-Allow-Origin: *");
 
-function getSpecifiedDrivers($driverRef = null) {
+function getSpecifiedDrivers($driverRef) {
     if ($driverRef) {
-       
         $sql = "SELECT driverId, forename, surname, dob, 
          round((julianday('now') - julianday(dob)) / 365.25) AS age, nationality, url 
         FROM drivers 
-        WHERE driverRef = '$driverRef'"; // Directly include the parameter
+        WHERE driverRef = ?"; // Directly include the parameter
+        $data = getData($sql, [$driverRef]); // Pass the driverRef as an array
     } else {
         $sql = "SELECT driverId, forename, surname FROM drivers"; // Fetch all drivers
+        $data = getData($sql, []); // Call getData without parameters
     }
-
-    $data = getData($sql); // Call getData with the SQL query
 
     if (empty($data)) {
         $response = ["error" => $driverRef ? "No driver found for driverRef: $driverRef" : "No data found."];
@@ -35,8 +34,6 @@ function getSpecifiedDrivers($driverRef = null) {
     // Echo the JSON response
     echo json_encode($response, JSON_NUMERIC_CHECK);
     return $response;
-
-
 }
 
 function getDriversForRace($raceId) {
@@ -75,7 +72,7 @@ if (isset($_GET['driverRef']) && !empty($_GET['driverRef'])) {
 } elseif (isset($_GET['raceId']) && !empty($_GET['raceId'])) {
     getDriversForRace($_GET['raceId']);
 } else {
-    getSpecifiedDrivers(); // Call without parameters to fetch all drivers
+    getSpecifiedDrivers(null); // Call without parameters to fetch all drivers
 }
 
 

@@ -16,11 +16,11 @@
                }
                $statement -> execute();
                $pdo = null; // close db connection
-               return $statement -> fetchAll();
+               return $statement->fetchAll(PDO::FETCH_ASSOC);
             } else {
                     $pdo = new PDO(DBCONNSTRING);
                     $result = $pdo -> query($sql);
-                    return $result -> fetchAll();
+                    return $statement->fetchAll(PDO::FETCH_ASSOC);
             }
            } catch (PDOException $e) {
                echo "Connection failed: " . $e->getMessage();
