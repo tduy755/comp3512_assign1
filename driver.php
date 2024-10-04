@@ -1,6 +1,14 @@
 <!-- The next shown is the Driver Page. It includes details about the driver as well as race
 results for that driver for the season. How will the page “know” which driver to display?
 It will be passed the driverRef value for the driver. -->
+<?php
+          require_once('includes/config.inc.php'); 
+          require_once('includes/db.inc.php'); 
+          require_once('api/drivers.php');
+    $driverRef = isset($_GET['driverRef']) ? $_GET['driverRef'] : null; // Get driverRef from query string
+    $driverData = getSpecifiedDrivers($driverRef); // Call the function to get driver data
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -27,11 +35,17 @@ It will be passed the driverRef value for the driver. -->
     <div class="driver-details">
         <h2>F1 Drivers 2022</h2>
         <ul>
-            <li id=name>Name</li>
-            <li id=dob>DOB</li>
-            <li id=age>Age</li>
-            <li id=nationality>Nationality</li>
-            <li id=url><a href="#">URL</a></li>
+            <?php
+        foreach ($driverData as $data) { // Corrected syntax: added $ before data
+            echo "
+            <li id='name'>{$data['forename']} {$data['surname']}</li> <!-- Corrected array access -->
+            <li id='dob'>{$data['dob']}</li> <!-- Added data access -->
+            <li id='age'>{$data['age']}</li> <!-- Added data access -->
+            <li id='nationality'>{$data['nationality']}</li> <!-- Added data access -->
+            <li id='url'><a href='{$data['url']}'>URL</a></li> <!-- Corrected array access -->
+            ";
+        }
+            ?>
         </ul>
       
     </div>

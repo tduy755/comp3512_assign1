@@ -27,10 +27,16 @@ function getSpecifiedDrivers($driverRef = null) {
     $data = getData($sql); // Call getData with the SQL query
 
     if (empty($data)) {
-        echo json_encode(["error" => $driverRef ? "No driver found for driverRef: $driverRef" : "No data found."]);
+        $response = ["error" => $driverRef ? "No driver found for driverRef: $driverRef" : "No data found."];
     } else {
-        echo json_encode($data, JSON_NUMERIC_CHECK);
+        $response = $data;
     }
+
+    // Echo the JSON response
+    echo json_encode($response, JSON_NUMERIC_CHECK);
+    return $response;
+
+
 }
 
 function getDriversForRace($raceId) {
@@ -49,6 +55,20 @@ function getDriversForRace($raceId) {
     }
 }
 
+function getDriverRaceResults($driverRef) {
+    $sql = "select drivers.driverRef, races.round, circuits.name, qualifying.position, results.points
+from drivers  
+            inner join qualifying using(driverId)
+            inner join results using(driverId)
+            inner join races using(raceId)
+            inner join circuits using(circuitId);
+            where driverRef ='$driverRef'
+            order by races.round
+    ";
+
+    $data = getData($sql);
+    return $data;
+}
 // Check for driverRef or raceId in the query string and call the appropriate function
 if (isset($_GET['driverRef']) && !empty($_GET['driverRef'])) {
     getSpecifiedDrivers($_GET['driverRef']);
