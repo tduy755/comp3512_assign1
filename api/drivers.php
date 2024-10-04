@@ -13,7 +13,7 @@ header('Content-type: application/json');
 // Indicate whether other domains can use this API
 header("Access-Control-Allow-Origin: *");
 
-function getSpecifiedDrivers($driverRef) {
+
 function getSpecifiedDrivers($driverRef = null) { //function for drivers
     if ($driverRef) {
         $sql = "SELECT driverId, forename, surname, dob, 
