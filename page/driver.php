@@ -6,6 +6,9 @@ It will be passed the driverRef value for the driver. -->
     require_once('../includes/db.inc.php'); 
     
     function showDriverDetails($driverRef) {
+    if (empty($driverRef)) {
+        return "<p>No driver reference provided.</p>"; // Return a message if driverRef is empty
+    }
     // Prepare the SQL query
     $sql = "SELECT driverId, forename, surname, dob, 
             round((julianday('now') - julianday(dob)) / 365.25) AS age, nationality, url 
@@ -36,24 +39,33 @@ It will be passed the driverRef value for the driver. -->
 
 // Get driverRef from query string
 $driverRef = isset($_GET['driverRef']) ? $_GET['driverRef'] : null; 
-$driverData = showDriverDetails($driverRef); // Call the new function
+
+// Check if driverRef is provided before calling the function
+if ($driverRef) {
+    $driverData = showDriverDetails($driverRef); // Call the new function
+} else {
+    $driverData = "<p>No driver reference provided.</p>"; // Handle case when no driverRef is passed
+}
 
 function getDriversForRace($driverRef) {
     $sql = "   SELECT drivers.driverRef, races.round, circuits.name, results.position, results.points as total_points
-   FROM drivers  
-   INNER JOIN results USING(driverId)
-   INNER JOIN races USING(raceId)
-   INNER JOIN circuits USING(circuitId)
-   INNER JOIN qualifying USING(driverId)
-   WHERE drivers.driverRef = ?
-   AND races.year = 2022
-   GROUP BY drivers.driverRef, races.round, circuits.name
-   ORDER BY races.round, circuits.name";
-
+                FROM drivers  
+                INNER JOIN results USING(driverId)
+                INNER JOIN races USING(raceId)
+                INNER JOIN circuits USING(circuitId)
+                INNER JOIN qualifying USING(driverId)
+                WHERE drivers.driverRef = ?
+                AND races.year = 2022
+                GROUP BY drivers.driverRef, races.round, circuits.name
+                ORDER BY races.round, circuits.name";
+    
+    if (empty($driverRef)) {
+        return "<p>No driver reference provided.</p>"; // Return a message if driverRef is empty
+    }
     $data = getData($sql, $_GET['driverRef']); // Call getData with the SQL query
 
     if (empty($data)) {
-        return "<p>No data found for driver in 2022: $driverRef</p>";
+        return "<p>No data found for driver in 2022 for: $driverRef</p>";
     } 
     $output = "<table>";
 
