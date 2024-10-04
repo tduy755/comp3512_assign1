@@ -10,10 +10,10 @@ It will be passed the driverRef value for the driver. -->
     $sql = "SELECT driverId, forename, surname, dob, 
             round((julianday('now') - julianday(dob)) / 365.25) AS age, nationality, url 
             FROM drivers 
-            WHERE driverRef = '$driverRef'"; // Directly using driverRef
+            WHERE driverRef = ?"; // Directly using driverRef
 
     // Get the driver data
-    $driver = getData($sql);
+    $driver = getData($sql, $_GET['driverRef']);
 
     // Check if driver data is found
     if (empty($driver)) {
@@ -38,19 +38,19 @@ It will be passed the driverRef value for the driver. -->
 $driverRef = isset($_GET['driverRef']) ? $_GET['driverRef'] : null; 
 $driverData = showDriverDetails($driverRef); // Call the new function
 
-    function getDriversForRace($driverRef) {
+function getDriversForRace($driverRef) {
     $sql = "   SELECT drivers.driverRef, races.round, circuits.name, results.position, results.points as total_points
    FROM drivers  
    INNER JOIN results USING(driverId)
    INNER JOIN races USING(raceId)
    INNER JOIN circuits USING(circuitId)
    INNER JOIN qualifying USING(driverId)
-   WHERE drivers.driverRef = '$driverRef'
+   WHERE drivers.driverRef = ?
    AND races.year = 2022
    GROUP BY drivers.driverRef, races.round, circuits.name
    ORDER BY races.round, circuits.name";
 
-    $data = getData($sql); // Call getData with the SQL query
+    $data = getData($sql, $_GET['driverRef']); // Call getData with the SQL query
 
     if (empty($data)) {
         return "<p>No data found for driver in 2022: $driverRef</p>";
