@@ -14,6 +14,7 @@ header('Content-type: application/json');
 header("Access-Control-Allow-Origin: *");
 
 function getSpecifiedDrivers($driverRef) {
+function getSpecifiedDrivers($driverRef = null) { //function for drivers
     if ($driverRef) {
         $sql = "SELECT driverId, forename, surname, dob, 
          round((julianday('now') - julianday(dob)) / 365.25) AS age, nationality, url 
