@@ -20,9 +20,10 @@ function getSpecifiedDrivers($driverRef = null) { //function for drivers
          round((julianday('now') - julianday(dob)) / 365.25) AS age, nationality, url 
         FROM drivers 
         WHERE driverRef = ?"; // Directly include the parameter
+
         $data = getData($sql, [$driverRef]); // Pass the driverRef as an array
     } else {
-        $sql = "SELECT driverId, forename, surname FROM drivers"; // Fetch all drivers
+        $sql = "SELECT driverId, forename, surname, dob, round((julianday('now') - julianday(dob)) / 365.25) AS age, nationality, url   FROM drivers"; // Fetch all drivers
         $data = getData($sql, []); // Call getData without parameters
     }
 
@@ -37,43 +38,38 @@ function getSpecifiedDrivers($driverRef = null) { //function for drivers
     return $response;
 }
 
-function getDriversForRace($raceId) {
-    $sql = "SELECT driverId, driverRef, forename, surname, races.RaceId FROM drivers
-            INNER JOIN qualifying USING(driverId)
-            INNER JOIN races USING(raceId)
-            WHERE races.raceId = '$raceId'
-            ORDER BY driverRef";
+function getDriversForRace($raceId= null) {
+    if ($raceId) {
+        $sql = "SELECT driverId, driverRef, forename, surname, races.RaceId FROM drivers
+                INNER JOIN qualifying USING(driverId)
+                INNER JOIN races USING(raceId)
+                WHERE races.raceId = ?
+                ORDER BY driverRef";
 
-    $data = getData($sql); // Call getData with the SQL query
-
-    if (empty($data)) {
-        echo json_encode(["error" => "No drivers found for raceId: $raceId"]);
-    } else {
-        echo json_encode($data, JSON_NUMERIC_CHECK);
+        $data = getData($sql, [$raceId]); // Call getData with the SQL query
+    } else{
+        $sql = "SELECT driverId, forename, surname, dob, round((julianday('now') - julianday(dob)) / 365.25) AS age, nationality, url   FROM drivers"; // Fetch all drivers
+        $data = getData($sql, []); // Call getData without parameters
     }
+    if (empty($data)) {
+        $response = ["error" => $raceId ? "No driver found for raceId: $raceId" : "No data found."];
+    } else {
+        $response = $data;
+    }
+
+    echo json_encode($response, JSON_NUMERIC_CHECK);
+    return $response;
 }
 
-function getDriverRaceResults($driverRef) {
-    $sql = "select drivers.driverRef, races.round, circuits.name, qualifying.position, results.points
-from drivers  
-            inner join qualifying using(driverId)
-            inner join results using(driverId)
-            inner join races using(raceId)
-            inner join circuits using(circuitId);
-            where driverRef ='$driverRef'
-            order by races.round
-    ";
 
-    $data = getData($sql);
-    return $data;
-}
 // Check for driverRef or raceId in the query string and call the appropriate function
 if (isset($_GET['driverRef']) && !empty($_GET['driverRef'])) {
     getSpecifiedDrivers($_GET['driverRef']);
 } elseif (isset($_GET['raceId']) && !empty($_GET['raceId'])) {
     getDriversForRace($_GET['raceId']);
 } else {
-    getSpecifiedDrivers(null); // Call without parameters to fetch all drivers
+    getSpecifiedDrivers(null); // Call without parameters to fetch all drivers\
+    getDriversForRace(null);
 }
 
 
