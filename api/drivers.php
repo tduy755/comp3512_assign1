@@ -1,6 +1,6 @@
 <?php
     require_once('../includes/config.inc.php');
-    include_once '../includes/db.inc.php';
+    include_once ('../includes/db.inc.php');
 
     // $data = getData('select * from drivers');
 
