@@ -1,129 +1,123 @@
 <?php
- require_once('../includes/config.inc.php'); 
- require_once('../includes/db.inc.php'); 
+require_once('../includes/config.inc.php'); 
+require_once('../includes/db.inc.php'); 
+// Get constructorRef from query string
+$constructorRef = isset($_GET['constructorRef']) ? $_GET['constructorRef'] : null; 
 
+function showConstructorDetails($constructorRef) {
+    if (empty($constructorRef)) {
+        return "<p>No constructor reference provided.</p>"; // Return a message if driverRef is empty
+    }
+    // Prepare the SQL query
+    $sql = "SELECT c.name, c.nationality, c.url 
+            FROM constructors as c 
+            WHERE constructorRef = ?"; // Directly using constructorRef
 
-    // Function to show constructor details based on constructorRef
-    function showConstructorDetails($constructorRef) {
-        if (empty($constructorRef)) {
-            return "<p>No constructor reference provided.</p>";
-        }
-        
-        // SQL query to retrieve constructor details
-        $sql = "SELECT constructorId, name, nationality, url 
-                FROM constructors 
-                WHERE constructorRef = ?";
+    // Get the driver data
+    $constructor = getData($sql, $_GET['constructorRef']);
 
-        // Fetch constructor data
-        $constructor = getData($sql, $constructorRef);
-
-        // Check if constructor data is found
-        if (empty($constructor)) {
-            return "<p>No constructor found for constructorRef: $constructorRef</p>";
-        }
-
-        // Build HTML output
-        $output = "<ul>";
-        foreach ($constructor as $c) {
-            $output .= "<li>Name: " . $c['name'] . "</li>";
-            $output .= "<li>Nationality: " . $c['nationality'] . "</li>";
-            $output .= "<li>URL: <a href='" . $c['url'] . "'>" . $c['url'] . "</a></li>";
-        }
-        $output .= "</ul>";
-
-        return $output;
+    // Check if constructor data is found
+    if (empty($constructor)) {
+        return "<p>No driver found for driverRef: $constructorRef</p>";
     }
 
-    // Function to show race results for the constructor in 2022 season
-    function getConstructorRaceResults($constructorRef) {
-        if (empty($constructorRef)) {
-            return "<p>No constructor reference provided.</p>";
-        }
+    // Build HTML output
+    $output = "<ul>";
+    foreach ($constructor as $c) {
+        $output .= "<li>Name: " . $c['name']. "</li>";
+        $output .= "<li>Nationality: " . $c['nationality'] . "</li>";
+        $output .= "<li>URL: <a href='" . $c['url'] . "'>" . $c['url'] . "</a></li>";
+    }
+    $output .= "</ul>";
 
-        // SQL query to retrieve race results for the constructor
-        $sql = "   SELECT constructors.constructorRef, races.round, circuits.name, results.position, results.points as total_points
-                    FROM constructors  
-                    INNER JOIN results USING(constructorId)
-                    INNER JOIN races USING(raceId)
-                    INNER JOIN circuits USING(circuitId)
-                    WHERE constructors.constructorRef = ?
-                    AND races.year = 2022
-                    GROUP BY constructors.constructorRef, races.round, circuits.name
-                    ORDER BY races.round, circuits.name";
-        
-        // Fetch race results data
-        $data = getData($sql, $constructorRef);
+    return $output;
+}
 
-        if (empty($data)) {
-            return "<p>No data found for constructor in 2022 for: $constructorRef</p>";
-        }
+// Check if constructorRef is provided before calling the function
+if ($constructorRef) {
+    $constructorData = showConstructorDetails($constructorRef);
+} else {
+    $constructorData = "<p>No constructor reference provided.</p>"; 
+}
 
-        // Build table output for race results
-        $output = "<table>";
+function showResultsConstructor($constructorRef) {
+     $sql = "   SELECT ra.round, ci.name AS circuit_name, d.forename, d.surname, r.position, r.points
+                FROM results AS r
+                    INNER JOIN races AS ra ON r.raceId = ra.raceId
+                    INNER JOIN circuits AS ci ON ra.circuitId = ci.circuitId
+                    INNER JOIN drivers AS d ON r.driverId = d.driverId
+                    INNER JOIN constructors AS c ON r.constructorId = c.constructorId
+                WHERE ra.year = 2022 AND c.constructorRef = ?
+                ORDER BY ra.round, r.position"; // Order by round and position
+    if (empty($constructorRef)) {
+        return "<p>No constructor reference provided.</p>"; // Return a message if driverRef is empty
+    }
+    $data = getData($sql, $_GET['constructorRef']); // Call getData with the SQL query
+
+    if (empty($data)) {
+        return "<p>No data found for constructor in 2022 for: $constructorRef</p>";
+    } 
+    $output = "<table>";
+
+    $output .= "<tr>";
+    $output .= "<th>Round</th>";
+    $output .= "<th>Circuit Name</th>";
+    $output .= "<th>Driver Name</th>";
+    $output .= "<th>Position</th>";
+    $output .= "<th>Points</th>";
+    $output .= "</tr>";
+
+    // Iterate through the data rows
+    foreach ($data as $d) {
         $output .= "<tr>";
-        $output .= "<th>Round</th>";
-        $output .= "<th>Circuit</th>";
-        $output .= "<th>Position</th>";
-        $output .= "<th>Points</th>";
+        $output .= "<td>" . $d['round'] . "</td>";
+        $output .= "<td>" . $d['circuit_name'] . "</td>";
+        $output .= "<td>" . $d['forename'] . ' ' . $d['surname'] . "</td>";
+        $output .= "<td>" . $d['position'] . "</td>";
+        $output .= "<td>" . $d['points'] . "</td>";
         $output .= "</tr>";
-
-        foreach ($data as $d) {
-            $output .= "<tr>";
-            $output .= "<td>" . $d['round'] . "</td>";
-            $output .= "<td>" . $d['name'] . "</td>";
-            $output .= "<td>" . $d['position'] . "</td>";
-            $output .= "<td>" . $d['total_points'] . "</td>";
-            $output .= "</tr>";
-        }
-
-        $output .= "</table>";
-        return $output;
     }
 
-    // Get constructorRef from query string
-    $constructorRef = isset($_GET['constructorRef']) ? $_GET['constructorRef'] : null; 
-
-    // Call functions to retrieve data if constructorRef is provided
-    if ($constructorRef) {
-        $constructorData = showConstructorDetails($constructorRef);
-        $raceData = getConstructorRaceResults($constructorRef);
-    } else {
-        $constructorData = "<p>No constructor reference provided.</p>";
-        $raceData = "<p>No constructor reference provided.</p>";
-    }
+    $output .= "</table>";
+    return $output;
+}
+$constructorRaceData = showResultsConstructor($constructorRef);
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>F1 Constructor Dashboard</title>
-    <link rel="stylesheet" href="../styles/constructor.css"> <!-- Link to the CSS file -->
+    <title>F1 Dashboard Project</title>
+    <link rel="stylesheet" href="../styles/driver.css"> <!-- Link to the CSS file -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap" rel="stylesheet">
 </head>
 <body>
 
 <header>
-    <h1>F1 Constructor Dashboard</h1>
+    <h1>F1 Dashboard Project</h1>
     <nav>
-        <a href="#"><i class="fas fa-home"></i> Home</a>
-        <a href="#"><i class="fas fa-folder-open"></i> Browse</a>
-        <a href="#"><i class="fas fa-code"></i> APIs</a>
+    <a href="#"><i class="fas fa-home"></i> Home</a>
+    <a href="#"><i class="fas fa-folder-open"></i> Browse</a>
+    <a href="#"><i class="fas fa-code"></i> APIs</a>
     </nav>
 </header>
 
 <div class="container">
-    <div class="constructor-details">
+    <div class="driver-details">
         <h2>Constructor Details</h2>
-        <?php echo $constructorData; ?> <!-- Display constructor details -->
+        <ul>
+          <?php echo $constructorData; ?>
+        </ul>
     </div>
 
     <div class="race-results">
         <h2>Race Results</h2>
-        <?php echo $raceData; ?> <!-- Display constructor's race results -->
-        <p class="note">Display the results for the current season sorted by round</p>
+        <?php
+            echo $constructorRaceData;
+        ?>
+        <p class="note">Display the results for the current season sorted by round for both drivers and constructor</p>
     </div>
 </div>
 
