@@ -22,9 +22,13 @@ function getSpecifiedDrivers($driverRef = null) { //function for drivers
         WHERE driverRef = ?"; // Directly include the parameter
 
         $data = getData($sql, [$driverRef]); // Pass the driverRef as an array
-    } else {
-        $sql = "SELECT driverId, forename, surname, dob, round((julianday('now') - julianday(dob)) / 365.25) AS age, nationality, url   FROM drivers"; // Fetch all drivers
-        $data = getData($sql, []); // Call getData without parameters
+    } else { // return all drivers for 2022 season
+        $sql = "SELECT driverId, forename, surname, dob, round((julianday('now') - julianday(dob)) / 365.25) AS age, nationality, drivers.url, races.year as season   
+                FROM drivers
+                INNER JOIN qualifying USING(driverId)
+                INNER JOIN races USING(raceId)
+                WHERE races.year = 2022"; 
+        $data = getData($sql, []); 
     }
 
     if (empty($data)) {

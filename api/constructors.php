@@ -7,20 +7,22 @@
     // Indicate whether other domains can use this API
     header("Access-Control-Allow-Origin: *");
 
-function getSpecifiedConstructors($constructorRef = null) { //function for drivers
+function getSpecifiedConstructors($constructorRef = null) { 
     if ($constructorRef) {
         $sql = "SELECT  constructors.name, nationality, constructors.url, races.year as season from constructors   
                     INNER JOIN qualifying USING(constructorId)
                     INNER JOIN races USING(raceId)
-                WHERE constructorRef = ? and races.year = 2022"; // Directly include the parameter
+                WHERE constructorRef = ? "; // Directly include the parameter
 
         $data = getData($sql, [$constructorRef]); // Pass the driverRef as an array
     } else {
-        //return all drivers from 2022 season
-        $sql = "SELECT  constructors.name, nationality, constructors.url, races.year as season from constructors   
+        //return all constructors from 2022 season
+        $sql = "SELECT  distinct(constructors.constructorId), constructors.name, nationality, constructors.url, races.year as season from constructors   
                     INNER JOIN qualifying USING(constructorId)
                     INNER JOIN races USING(raceId)
-                WHERE races.year = 2022"; 
+                   
+                WHERE races.year = 2022
+                ORDER BY constructors.constructorId"; 
         $data = getData($sql, []); // Call getData without parameters
     }
 
