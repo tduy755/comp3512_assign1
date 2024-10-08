@@ -61,7 +61,7 @@ function getDriversForRace($raceId= null) {
         $response = $data;
     }
 
-    echo json_encode($response, JSON_NUMERIC_CHECK);
+    echo json_encode($response, JSON_NUMERIC_CHECK );
     return $response;
 }
 
