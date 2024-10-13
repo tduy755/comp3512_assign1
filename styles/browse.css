@@ -1,0 +1,112 @@
+body {
+  font-family: "Montserrat", sans-serif;
+  margin: 0;
+  padding: 20px;
+  background-color: #f4f4f4;
+}
+
+p {
+  font-size: 40px;
+  color: red;
+  text-align: center;
+}
+
+header {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+nav {
+  margin-bottom: 20px;
+}
+
+nav a {
+  margin: 0 10px;
+  text-decoration: none;
+  color: #007bff;
+}
+
+h2 {
+  text-align: center;
+  margin-top: 0;
+}
+
+.button {
+  background-color: #007bff;
+  color: white;
+  padding: 5px 10px;
+  border: none;
+  border-radius: 5px;
+  text-decoration: none;
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+.button:hover {
+  background-color: #0056b3;
+  transform: scale(1.05);
+}
+
+.container {
+  display: flex;
+  justify-content: space-between;
+}
+.races,
+.results,
+.race-info {
+  border: 1px solid #ccc;
+  padding: 10px;
+  background: white;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  font-family: "Montserrat", sans-serif;
+}
+.races table {
+  border: none; /* Remove border from the table */
+}
+
+.races th,
+.races td {
+  border: none; /* Remove border from table headers and cells */
+  padding: 12px; /* Padding inside cells */
+  text-align: left; /* Left align text */
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+th,
+td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+.race-info th,
+.results th {
+  background-color: #f2f2f2;
+}
+
+.top-results {
+  display: flex; /* Use flexbox for horizontal layout */
+  margin-bottom: 20px;
+}
+.result-box {
+  border: 1px solid #ccc;
+  padding: 10px;
+  text-align: center;
+  width: 30%; /* Adjust width as needed */
+  background-color: #f9f9f9;
+}
+.result-box h3 {
+  margin: 0;
+}
+.result-box p {
+  font-size: 1.5em;
+  color: gray;
+}
+
+.races h2 {
+  border-top: 3px solid #000000; /* Add a blue border below the header */
+  padding-top: 5px;
+}

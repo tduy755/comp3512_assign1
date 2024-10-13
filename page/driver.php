@@ -101,7 +101,7 @@ $raceData = getDriversForRace($driverRef);
     <title>F1 Dashboard Project</title>
     <link rel="stylesheet" href="../styles/driver.css"> <!-- Link to the CSS file -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400&display=swap" >
     
 </head>
 <body>
@@ -127,7 +127,7 @@ $raceData = getDriversForRace($driverRef);
     <div class="race-results">
         <h2>Race Results</h2>
         <?php echo $raceData; ?> 
-        <p class="note">Display the results for the current season sorted by round</p>
+       
     </div>
 </div>
 
