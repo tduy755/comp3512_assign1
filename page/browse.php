@@ -204,9 +204,9 @@ $raceId = isset($_GET['raceId']) ? $_GET['raceId'] : null;
 <header>
     <h1>F1 Dashboard Project</h1>
     <nav>
-        <a href="#"><i class="fas fa-home"></i> Home</a>
-        <a href="#"><i class="fas fa-folder-open"></i> Browse</a>
-        <a href="#"><i class="fas fa-code"></i> APIs</a>
+        <a href="index.php"><i class="fas fa-home"></i> Home</a>
+        <a href="browse.php"><i class="fas fa-folder-open"></i> Browse</a>
+        <a href="apitester.php"><i class="fas fa-code"></i> APIs</a>
     </nav>
 </header>
 

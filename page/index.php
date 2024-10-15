@@ -22,9 +22,9 @@ or links that will appear on every PHP page. -->
 <header>
     <h1>F1 Dashboard Project</h1>
     <nav>
-        <a href="#"><i class="fas fa-home"></i> Home</a>
-        <a href="#"><i class="fas fa-folder-open"></i> Browse</a>
-        <a href="#"><i class="fas fa-code"></i> APIs</a>
+        <a href=" index.php"><i class="fas fa-home"></i> Home</a>
+        <a href="browse.php"><i class="fas fa-folder-open"></i> Browse</a>
+        <a href="apitester.php"><i class="fas fa-code"></i> APIs</a>
     </nav>
 </header>
 
@@ -42,3 +42,4 @@ or links that will appear on every PHP page. -->
         <img src="/assign1/images/f1.jpeg" alt="2 Cars">
     </div>
 </div>
+</html>
