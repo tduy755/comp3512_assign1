@@ -25,12 +25,12 @@ It will be passed the driverRef value for the driver. -->
 
     // Build HTML output
     $output = "<ul>";
-    foreach ($driver as $d) {
-        $output .= "<li>Name: " . $d['forename'] . ' ' . $d['surname'] . "</li>";
-        $output .= "<li>Date of Birth: " . $d['dob'] . "</li>";
-        $output .= "<li>Age: " . $d['age'] . "</li>";
-        $output .= "<li>Nationality: " . $d['nationality'] . "</li>";
-        $output .= "<li>URL: <a href='" . $d['url'] . "'>" . $d['url'] . "</a></li>";
+        foreach ($driver as $d) {
+        $output .= "<li><strong>Name:</strong> " . $d['forename'] . ' ' . $d['surname'] . "</li>";
+        $output .= "<li><strong>Date of Birth:</strong> " . $d['dob'] . "</li>";
+        $output .= "<li><strong>Age:</strong> " . $d['age'] . "</li>";
+        $output .= "<li><strong>Nationality:</strong> " . $d['nationality'] . "</li>";
+        $output .= "<li><strong>URL:</strong> <a href='" . $d['url'] . "'>" . $d['url'] . "</a></li>";
     }
     $output .= "</ul>";
 
@@ -72,7 +72,7 @@ function getDriversForRace($driverRef) {
     $output .= "<tr>";
     $output .= "<th>Round</th>";
     $output .= "<th>Name</th>";
-    $output .= "<th>Best Position</th>";
+    $output .= "<th>Position</th>";
     $output .= "<th>Points</th>";
     $output .= "</tr>";
 

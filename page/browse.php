@@ -114,8 +114,8 @@ $raceId = isset($_GET['raceId']) ? $_GET['raceId'] : null;
     foreach ($data as $row) {
         $output .= '<tr>
             <td>' . $row['position'] . '</td>
-            <td>' . $row['forename'] . ' ' .$row['surname']. '</td>
-            <td>' . $row['constructor'] . '</td>
+            <td><a href="driver.php?driverRef=' . $row['driverRef'] . '" target="_blank">' . $row['forename'] . ' ' . $row['surname'] . '</a></td>
+            <td><a href="constructor.php?constructorRef=' . $row['constructorRef'] . '" target="_blank">' . $row['constructor'] . '</a></td>
             <td>' . $row['q1'] . '</td>
             <td>' . $row['q2'] . '</td>
             <td>' . $row['q3'] . '</td>

@@ -24,9 +24,9 @@ function showConstructorDetails($constructorRef) {
     // Build HTML output
     $output = "<ul>";
     foreach ($constructor as $c) {
-        $output .= "<li>Name: " . $c['name']. "</li>";
-        $output .= "<li>Nationality: " . $c['nationality'] . "</li>";
-        $output .= "<li>URL: <a href='" . $c['url'] . "'>" . $c['url'] . "</a></li>";
+        $output .= "<li><strong>Name:</strong> " . $c['name']. "</li>";
+        $output .= "<li><strong>Nationality</strong>: " . $c['nationality'] . "</li>";
+        $output .= "<li><strong>URL:</strong> <a href='" . $c['url'] . "'>" . $c['url'] . "</a></li>";
     }
     $output .= "</ul>";
 
@@ -91,7 +91,7 @@ $constructorRaceData = showResultsConstructor($constructorRef);
     <title>F1 Dashboard Project</title>
     <link rel="stylesheet" href="../styles/driver.css"> <!-- Link to the CSS file -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400&display=swap" rel="stylesheet">
 </head>
 <body>
 
