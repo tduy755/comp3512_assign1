@@ -38,7 +38,7 @@ see the JSON data returned from the API -->
                 <td>Returns all the circuits for the 2022 season.</td>
             </tr>
             <tr>
-                <td><a href="/assign1/api/circuits.php?ref=monaco" target="_blank">/api/circuits.php?ref=monaco</a></td>
+                <td><a href="/assign1/api/circuits.php?circuitRef=monaco" target="_blank">/api/circuits.php?circuitRef=monaco</a></td>
                 <td>Returns details for the circuit with the ref `monaco`.</td>
             </tr>
             <tr>
@@ -54,11 +54,11 @@ see the JSON data returned from the API -->
                 <td>Returns all drivers for the 2022 season.</td>
             </tr>
             <tr>
-                <td><a href="/assign1/api/drivers.php?ref=hamilton" target="_blank">/api/drivers.php?ref=hamilton</a></td>
+                <td><a href="/assign1/api/drivers.php?driverRef=hamilton" target="_blank">/api/drivers.php?driverRef=hamilton</a></td>
                 <td>Returns details for the driver with the ref `hamilton`.</td>
             </tr>
             <tr>
-                <td><a href="/assign1/api/drivers.php?race=1106" target="_blank">/api/drivers.php?race=1106</a></td>
+                <td><a href="/assign1/api/drivers.php?raceId=1106" target="_blank">/api/drivers.php?raceId=1106</a></td>
                 <td>Returns drivers for a specific race (race ID: 1106).</td>
             </tr>
             <tr>

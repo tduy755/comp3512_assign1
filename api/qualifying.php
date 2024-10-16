@@ -12,6 +12,7 @@
         if ($raceRef) {
             $sql = "
                 SELECT 
+                    qualifying.raceId,
                     qualifying.position as qualifyingPosition, 
                     drivers.driverRef, 
                     drivers.forename, 

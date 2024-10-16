@@ -11,6 +11,7 @@
         if ($raceRef) {
             $sql = "
                 SELECT 
+                    results.raceId,
                     results.position AS finishPosition,
                     results.grid AS gridPosition,
                     results.laps AS laps,
@@ -44,6 +45,7 @@
         if ($driverRef) {
             $sql = "
                 SELECT 
+                    drivers.driverRef,
                     results.position AS finishPosition,
                     results.grid AS gridPosition,
                     results.laps AS laps,
