@@ -98,7 +98,8 @@ $constructorRaceData = showResultsConstructor($constructorRef);
 <header>
     <h1>F1 Dashboard Project</h1>
     <nav>
-    <a href="index.php"><i class="fas fa-home"></i> Home</a>
+    <!-- Archieved from https://fontawesome.com/v4/icon/home --> 
+    <a href="index.php"><i class="fas fa-home"></i> Home</a>      
     <a href="browse.php"><i class="fas fa-folder-open"></i> Browse</a>
     <a href="apitester.php"><i class="fas fa-code"></i> APIs</a>
     </nav>

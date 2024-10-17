@@ -97,7 +97,8 @@ $raceData = getDriversForRace($driverRef);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>F1 Dashboard Project</title>
-    <link rel="stylesheet" href="../styles/driver.css"> <!-- Link to the CSS file -->
+    <link rel="stylesheet" href="../styles/driver.css">
+    <!-- Archieved from https://fonts.google.com/specimen/Montserrat -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400&display=swap" >
     
@@ -107,6 +108,7 @@ $raceData = getDriversForRace($driverRef);
 <header>
     <h1>F1 Dashboard Project</h1>
     <nav>
+        <!-- Archieved from https://fontawesome.com/v4/icon/home --> 
     <a href="index.php"><i class="fas fa-home"></i> Home</a>
     <a href="browse.php"><i class="fas fa-folder-open"></i> Browse</a>
     <a href="apitester.php"><i class="fas fa-code"></i> APIs</a>
