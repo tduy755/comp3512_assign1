@@ -2,11 +2,6 @@
     require_once('../includes/config.inc.php');
     include_once ('../includes/db.inc.php');
 
-    // $data = getData('select * from drivers');
-
-    // foreach ($races as $row) {
-    //     echo "ID: " . $row['driverId'] . "  Driver Name: " . $row['surname'] . "<br>";
-    // }
 
      // Tell the browser to expect JSON rather than HTML
 header('Content-type: application/json');
@@ -72,7 +67,7 @@ if (isset($_GET['driverRef']) && !empty($_GET['driverRef'])) {
 } elseif (isset($_GET['raceId']) && !empty($_GET['raceId'])) {
     getDriversForRace($_GET['raceId']);
 } else {
-    getSpecifiedDrivers(null); // Call without parameters to fetch all drivers\
+    getSpecifiedDrivers(null); // Call without parameters to fetch all drivers
     getDriversForRace(null);
 }
 

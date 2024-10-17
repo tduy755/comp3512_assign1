@@ -1,8 +1,4 @@
-<!-- The next shown is the Browse Page. Initially it will display all the races for the season.
-When the user selects a race, then display more information for the race as well as a list
-of qualifying results and race results. When we learn JavaScript, we will have a clean way
-to hide/show data. In PHP, your page will need to “know” whether to display race results
-or not. If there is a raceId passed to the page, then display results. -->
+
 <?php
 require_once('../includes/config.inc.php'); 
 require_once('../includes/db.inc.php'); 
@@ -65,7 +61,7 @@ $raceId = isset($_GET['raceId']) ? $_GET['raceId'] : null;
         </tr>';
         
         foreach ($data as $row) {
-            $output .= '<h2>Data for ' .$row['name'].'</h2>';
+            $output .= '<h2>' .$row['name'].'</h2>';
             $output .= '<tr>
                 <td>' . $row['name'] . '</td>
                 <td>' . $row['round'] . '</td>
@@ -128,6 +124,18 @@ $raceId = isset($_GET['raceId']) ? $_GET['raceId'] : null;
    
 }
 
+    function getOrdinalSuffix($position) {
+        if ($position % 10 == 1 && $position % 100 != 11) {
+            return 'st';
+        } elseif ($position % 10 == 2 && $position % 100 != 12) {
+            return 'nd';
+        } elseif ($position % 10 == 3 && $position % 100 != 13) {
+            return 'rd';
+        } else {
+            return 'th';
+        }
+    }
+
     function showResultsData($raceId) {
     // Top 3 racers
     $sql = "SELECT d.forename, d.surname, re.position
@@ -144,9 +152,9 @@ $raceId = isset($_GET['raceId']) ? $_GET['raceId'] : null;
     $output = '<div class="top-results">';
     foreach ($data as $row) {
         $output .= '<div class="result-box">
-                        <h3>' . $row['forename'] . ' ' . $row['surname'] . '</h3>
-                        <p>' . $row['position'] . 'st</p>
-                    </div>';
+                <h3>' . $row['forename'] . ' ' . $row['surname'] . '</h3>
+                <p>' . $row['position'] . getOrdinalSuffix($row['position']) . '</p>
+            </div>';
     }
     $output .= '</div>';
 

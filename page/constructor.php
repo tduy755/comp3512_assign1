@@ -89,7 +89,7 @@ $constructorRaceData = showResultsConstructor($constructorRef);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>F1 Dashboard Project</title>
-    <link rel="stylesheet" href="../styles/driver.css"> <!-- Link to the CSS file -->
+    <link rel="stylesheet" href="../styles/constructor.css"> <!-- Link to the CSS file -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400&display=swap" rel="stylesheet">
 </head>
