@@ -2,33 +2,32 @@
     require_once('../includes/config.inc.php');
     include_once ('../includes/db.inc.php');
 
-     // Tell the browser to expect JSON rather than HTML
+    // Tell the browser to expect JSON rather than HTML
     header('Content-type: application/json');
     // Indicate whether other domains can use this API
     header("Access-Control-Allow-Origin: *");
 
 function getSpecifiedConstructors($constructorRef = null) { 
     if ($constructorRef) {
-        $sql = "SELECT  constructors.name, nationality, constructors.url, races.year as season from constructors   
-                    INNER JOIN qualifying USING(constructorId)
-                    INNER JOIN races USING(raceId)
-                WHERE constructorRef = ? "; // Directly include the parameter
+        $sql = "SELECT constructors.name, nationality, constructors.url
+                FROM constructors   
+                WHERE constructorRef = ?"; 
 
-        $data = getData($sql, [$constructorRef]); // Pass the driverRef as an array
+        $data = getData($sql, [$constructorRef]); 
     } else {
-        //return all constructors from 2022 season
-        $sql = "SELECT  distinct(constructors.constructorId), constructors.name, nationality, constructors.url, races.year as season from constructors   
-                    INNER JOIN qualifying USING(constructorId)
-                    INNER JOIN races USING(raceId)
-                   
-                WHERE races.year = 2022
+        // Return all constructors 
+        $sql = "SELECT constructors.constructorId, constructors.name, nationality, constructors.url
+                FROM constructors   
                 ORDER BY constructors.constructorId"; 
-        $data = getData($sql, []); // Call getData without parameters
+
+        $data = getData($sql, []); 
     }
 
     if (empty($data)) {
+        // Error handling for empty results
         $response = ["error" => $constructorRef ? "No constructor found for constructorRef: $constructorRef" : "No data found."];
     } else {
+        // Return data in the response
         $response = $data;
     }
 
@@ -37,11 +36,9 @@ function getSpecifiedConstructors($constructorRef = null) {
     return $response;
 }
 
-
-if (isset($_GET['constructorRef']) && !empty($_GET['constructorRef'])) {
-    getSpecifiedConstructors($_GET['constructorRef']);
-}else {
-    getSpecifiedConstructors(null);
+if (isset($_GET['ref']) && !empty($_GET['ref'])) {
+    getSpecifiedConstructors($_GET['ref']); 
+} else {
+    getSpecifiedConstructors(null); // Return all constructors if no ref is provided
 }
-
 ?>
