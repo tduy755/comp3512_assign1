@@ -27,7 +27,9 @@
     <div class="description">
         <h2>Description</h2>
        <p>
-This project gathers and visualizes data from a 2022 Formula 1 racing database, showcasing all circuits, races, constructors, and drivers. It uses PHP for server-side scripting, SQL for data querying, and HTML/CSS for creating an interactive user interface. Version control is managed with Git to maintain code integrity throughout the development process.
+This is Assignment #1  for COMP 3512 at Mount Royal University. This project gathers and visualizes data from a 2022 Formula 1 racing database, 
+showcasing all circuits, races, constructors, and drivers. It uses PHP for server-side scripting, SQL for data querying, and HTML/CSS for creating 
+an interactive user interface. Version control is managed with Git to maintain code integrity throughout the development process. Authors: Duy Tran, Chase Knight.
     <br>         
 <a href="https://github.com/tduy755/comp3512_assign1/tree/master">Our GitHub Repo!</a><br>
          <a href="browse.php">

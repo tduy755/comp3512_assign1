@@ -34,6 +34,7 @@ table {
   border-collapse: collapse;
   margin-top: 10px;
 }
+
 table,
 th,
 td {
@@ -80,4 +81,9 @@ header h1 {
   margin: 0;
   font-size: 2rem;
   color: #fff;
+}
+
+ul li {
+  margin-bottom: 5px;
+  font-size: 18px;
 }

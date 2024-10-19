@@ -89,7 +89,8 @@ $constructorRaceData = showResultsConstructor($constructorRef);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>F1 Dashboard Project</title>
-    <link rel="stylesheet" href="../styles/constructor.css"> <!-- Link to the CSS file -->
+    <link rel="stylesheet" href="../styles/constructor.css"> 
+    <!-- Archieved from https://fonts.google.com/specimen/Montserrat -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400&display=swap" rel="stylesheet">
 </head>
@@ -118,7 +119,7 @@ $constructorRaceData = showResultsConstructor($constructorRef);
         <?php
             echo $constructorRaceData;
         ?>
-        <p class="note">Display the results for the current season sorted by round for both drivers and constructor</p>
+      
     </div>
 </div>
 

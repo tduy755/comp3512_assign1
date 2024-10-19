@@ -13,6 +13,8 @@
             $sql = "
                 SELECT 
                     qualifying.raceId,
+                    qualifying.driverId,
+                    qualifying.constructorId,
                     qualifying.position as qualifyingPosition, 
                     drivers.driverRef, 
                     drivers.forename, 

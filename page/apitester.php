@@ -46,7 +46,7 @@
                 <td>Returns all constructors for the 2022 season.</td>
             </tr>
             <tr>
-                <td><a href="/assign1/api/constructors.php?ref=mclaren" target="_blank">/api/constructors.php?ref=mclaren</a></td>
+                <td><a href="/assign1/api/constructors.php?constructorRef=mclaren" target="_blank">/api/constructors.php?constructorRef=mclaren</a></td>
                 <td>Returns details for the constructor with the ref `mclaren`.</td>
             </tr>
             <tr>
@@ -66,7 +66,7 @@
                 <td>Returns all races for the 2022 season.</td>
             </tr>
             <tr>
-                <td><a href="/assign1/api/races.php?ref=1106" target="_blank">/api/races.php?ref=1106</a></td>
+                <td><a href="/assign1/api/races.php?raceId=1106" target="_blank">/api/races.php?raceId=1106</a></td>
                 <td>Returns details for a specific race (race ID: 1106).</td>
             </tr>
             <tr>

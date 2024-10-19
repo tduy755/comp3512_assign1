@@ -11,23 +11,24 @@
         if ($raceRef) {
             $sql = "
                 SELECT 
-                    results.raceId,
-                    results.position AS finishPosition,
-                    results.grid AS gridPosition,
-                    results.laps AS laps,
-                    results.time AS raceTime,
-                    results.fastestLap AS fastestLap,
+                    results.grid,
                     drivers.driverRef,
+                    drivers.code,
                     drivers.forename,
                     drivers.surname,
+                    races.name,
+                    races.round,
+                    races.year,
+                    races.date,
                     constructors.name AS constructorName,
                     constructors.constructorRef,
-                    constructors.nationality
+                    constructors.nationality as constructor_nationality
                 FROM results
                 INNER JOIN drivers ON results.driverId = drivers.driverId
                 INNER JOIN constructors ON results.constructorId = constructors.constructorId
+                INNER JOIN races USING(raceId)
                 WHERE results.raceId = ?
-                ORDER BY results.position ASC";
+                ORDER BY results.grid ASC";
     
             // Execute the query and retrieve the data
             $data = getData($sql, [$raceRef]);

@@ -162,14 +162,13 @@ $raceId = isset($_GET['raceId']) ? $_GET['raceId'] : null;
 }
     function showResultsTable($raceId) {
     // Top 1 - 20 of a race
-    $sql ="SELECT re.position, d.forename, d.surname, co.name, re.laps, re.points 
+    $sql ="SELECT re.position, d.driverRef, d.forename, d.surname, co.name as constructor, re.laps, re.points 
             FROM results AS re
                 INNER JOIN drivers AS d ON re.driverId = d.driverId
                 INNER JOIN constructors AS co ON re.constructorId = co.constructorId
                 INNER JOIN races AS r ON re.raceId = r.raceId
             WHERE r.year = 2022 AND r.raceId = ?
-            ORDER BY re.position
-            LIMIT 3";
+            ORDER BY re.position";
     $data = getData($sql, [$raceId]);
 
     // Generate the results table dynamically
@@ -185,8 +184,8 @@ $raceId = isset($_GET['raceId']) ? $_GET['raceId'] : null;
     foreach ($data as $row) {
         $output .= '<tr>
                         <td>' . $row['position'] . '</td>
-                        <td>' . $row['forename']. ' ' . $row['surname'] . '</td>
-                        <td>' . $row['name'] . '</td>
+                         <td><a href="driver.php?driverRef=' . $row['driverRef'] . '" target="_blank">' . $row['forename'] . ' ' . $row['surname'] . '</a></td>
+            <td><a href="constructor.php?constructorRef=' . $row['constructor'] . '" target="_blank">' . $row['constructor'] . '</a></td>
                         <td>' . $row['laps'] . '</td>
                         <td>' . $row['points'] . '</td>
                     </tr>';

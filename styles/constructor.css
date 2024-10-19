@@ -81,3 +81,8 @@ header h1 {
   font-size: 2rem;
   color: #fff;
 }
+
+ul li {
+  margin-bottom: 5px;
+  font-size: 18px;
+}

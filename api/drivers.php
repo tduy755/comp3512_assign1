@@ -3,7 +3,7 @@
     include_once ('../includes/db.inc.php');
 
 
-     // Tell the browser to expect JSON rather than HTML
+// Tell the browser to expect JSON rather than HTML
 header('Content-type: application/json');
 // Indicate whether other domains can use this API
 header("Access-Control-Allow-Origin: *");
